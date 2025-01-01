@@ -23,7 +23,7 @@
   <v-app>
     <v-app-bar color="primary" prominent app>
       <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-start">Diving-related calculations</v-toolbar-title>
+      <v-toolbar-title class="text-start">Dave not coming back</v-toolbar-title>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -44,7 +44,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main style="padding-top: 30px;">
       <v-container>
         <router-view />
       </v-container>
