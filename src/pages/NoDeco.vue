@@ -60,7 +60,6 @@ export default {
               v-model="formData.depth"
               label="Enter depth"
               type="number"
-              :rules="depthRules"
               required
               full-width
             ></v-text-field>
