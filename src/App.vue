@@ -53,7 +53,7 @@
   </v-app>
 </template>
 
-<style scoped>
+<style>
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -65,5 +65,8 @@
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+}
+#app {
+  width: 100%;
 }
 </style>

@@ -219,7 +219,7 @@ export default {
   </v-row>
   <v-row>
     <v-col cols="12">
-      <div style="height: 600px; width: 1000px">
+      <div style="height: 600px">
         <v-chart :option="chartOptions" autoresize />
       </div>
     </v-col>
