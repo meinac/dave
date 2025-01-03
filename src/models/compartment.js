@@ -12,12 +12,12 @@ export default class Compartment {
     this.gasExchangeRate = Math.log(2, Math.E) / halfTime;
   }
 
-  stay(duration) {
-    this.ppN2 = Diffusion.haldane(this.ppN2, this.gasExchangeRate, this.depth, duration);
+  stay(duration, gas) {
+    this.ppN2 = Diffusion.haldane(gas, this.ppN2, this.gasExchangeRate, this.depth, duration);
   }
 
-  moveTo(toDepth) {
-    this.ppN2 = Diffusion.schreiner(this.ppN2, this.gasExchangeRate, this.depth, toDepth);
+  moveTo(toDepth, gas) {
+    this.ppN2 = Diffusion.schreiner(gas, this.ppN2, this.gasExchangeRate, this.depth, toDepth);
     this.depth = toDepth;
   }
 
@@ -25,8 +25,8 @@ export default class Compartment {
     return 100.0 * this.ppN2 / this.m(0);
   }
 
-  ndl() {
-    return Diffusion.reverseHaldane(this.ppN2, this.m(0), this.gasExchangeRate, this.depth);
+  ndl(gas) {
+    return Diffusion.reverseHaldane(gas, this.ppN2, this.m(0), this.gasExchangeRate, this.depth);
   }
 
   /*

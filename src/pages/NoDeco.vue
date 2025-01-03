@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     calculateNoDeco() {
-      const diver = DiverFactory.create();
+      const diver = DiverFactory.createTmpRecreationalDiver();
 
       diver.moveTo(parseInt(this.formData.depth));
       this.noDecoTime = diver.stayMaxNoDeco();
