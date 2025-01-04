@@ -49,7 +49,14 @@
         <router-view />
       </v-container>
     </v-main>
-    <v-footer app>Developed by Mehmet Emin INAC</v-footer>
+    <v-footer app>
+      <div style="display: flex; align-items: center;">
+        <p>
+          Source: &nbsp;
+        </p>
+        <a href="https://github.com/meinac/dave" target="_blank"><img src="/public/github-mark.svg" alt="Example Icon" width="25px" height="25px" /></a>
+      </div>
+    </v-footer>
   </v-app>
 </template>
 
