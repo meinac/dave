@@ -23,7 +23,7 @@
   <v-app>
     <v-app-bar color="primary" prominent app>
       <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-start">Dave not coming back</v-toolbar-title>
+      <v-toolbar-title class="text-start">Dave</v-toolbar-title>
     </v-app-bar>
 
     <v-navigation-drawer
