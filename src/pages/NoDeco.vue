@@ -75,7 +75,7 @@ export default {
           <p>No-deco time: <strong>{{ noDecoTime.toFixed(2) }} minutes</strong></p>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="showResult">
         <v-col cols="12">
           <Compartments :compartments="compartments"/>
         </v-col>
