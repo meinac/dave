@@ -27,17 +27,35 @@ export default {
           text: 'M Values'
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          formatter: function(data) {
+            const meters = parseInt(data[0].axisValueLabel);
+            let tooltipContent = (meters === -10) ? '' : `${meters} meters<br/><br/>`;
+
+            data.forEach(item => {
+              tooltipContent += `${item.marker} ${item.seriesName}: <b>${item.value[1]}</b><br/>`;
+            });
+
+            return tooltipContent;
+          }
         },
         xAxis: {
           type: 'value',
           name: 'depth',
           min: -10,
-          max: 90
+          max: 90,
+          axisLabel: {
+            formatter: function(label) {
+              if(label === -10) return 'Space(0 ATA)';
+
+              return label;
+            }
+          }
         },
         yAxis: {
           type: 'value',
           name: 'Pressure',
+          min: 0
         },
         series: [
           {
@@ -156,7 +174,7 @@ export default {
       const gfHighPP = (this.gfHigh / 100.0) * (originalMValues[2][1] - 1) + 1;
       const slope = (gfHighPP - gfLowPP) / 90;
 
-      return Array.from({ length: 10 }, (_, i) => [originalMValues[i + 2][0], (gfHighPP - slope * i * 10)]);
+      return Array.from({ length: 10 }, (_, i) => [originalMValues[i + 2][0], (gfHighPP - slope * i * 10).toFixed(4)]);
     },
     GFMarklineData() {
       if(this.gfLow == 100) return [];
