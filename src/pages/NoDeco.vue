@@ -44,13 +44,13 @@ export default {
   <v-row>
     <v-col cols="12">
       <v-row>
+        <Disclaimer />
+      </v-row>
+      <v-row>
         <v-container>
           <p>Enter the planned maximum depth to calculate the no-deco deep time.</p>
           <p>This calculation accounts for the descent(18 meters/min) duration but <strong>doesn't account for the ascent duration</strong>.</p>
         </v-container>
-      </v-row>
-      <v-row>
-        <Disclaimer />
       </v-row>
       <v-row>
         <v-col cols="3"/>
