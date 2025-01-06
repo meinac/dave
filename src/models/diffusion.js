@@ -5,6 +5,10 @@ export default class Diffusion {
   /*
   * Returns the new PPN2 after time at constant depth.
   *
+  * The gas uptaking can also be calculated by schereiner equation as it turns
+  * into haldane when the `toDepth` equals to `fromDepth` but I'm leaving this
+  * function here as I'm learning the algorithms.
+  *
   * P(new) = P(gas) - (P(gas) - P(old)) * (e^-kt)
   */
   static haldane(gas, initialPPN2, gasExchangeRate, depth, duration) {
