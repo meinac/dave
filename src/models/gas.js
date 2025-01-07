@@ -5,4 +5,8 @@ export default class Gas {
     this.volume = volume
     this.pressure = pressure
   }
+
+  MOD() {
+    return this.o2.MOD();
+  }
 }
