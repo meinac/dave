@@ -1,10 +1,10 @@
 import Environment from './environment'
 
 export default class N2 {
-  static FRACTION = 0.79;
+  static FRACTION_IN_AIR = 0.79;
 
-  constructor(fraction) {
-    this.fraction = fraction;
+  constructor(ratio) {
+    this.fraction = ratio / 100.0;
   }
 
   ppAt(depth) {
@@ -12,6 +12,6 @@ export default class N2 {
   }
 
   static ppAt(depth) {
-    return this.FRACTION * Environment.pressureAt(depth)
+    return this.FRACTION_IN_AIR * Environment.pressureAt(depth)
   }
 }
