@@ -50,4 +50,26 @@ export default class Diffusion {
         ((fromPPN2 - initialPPN2 - (rate / gasExchangeRate)) * (Math.E ** (-duration * gasExchangeRate)))
     );
   }
+
+  /*
+  * Returns the maximum PPN2 to be able to ascent from given depth without deco obligation.
+  *
+  * P(old) = P(i_gas) - (R / k) - [P(i_gas) + R(t - 1 / k) - P(new)] / (e^-kt)
+  */
+  static reverseScheiner(gas, targetPPN2, gasExchangeRate, fromDepth, toDepth) {
+    const movementRate = fromDepth > toDepth ? -ASCENT_RATE : DESCENT_RATE;
+    const duration = (toDepth - fromDepth) / movementRate;
+
+    if (duration == 0) return initialPPN2;
+
+    const fromPPN2 = gas.n2.ppAt(fromDepth);
+    const toPPN2 = gas.n2.ppAt(toDepth);
+    const rate = (toPPN2 - fromPPN2) / duration;
+
+    return (
+      fromPPN2 -
+        (rate / gasExchangeRate) -
+        ((fromPPN2 + (rate * (duration - 1 / gasExchangeRate)) - targetPPN2) / (Math.E ** (-duration * gasExchangeRate)))
+    );
+  }
 }
