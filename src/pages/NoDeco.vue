@@ -2,6 +2,7 @@
 import DiverFactory from '../factories/diverFactory';
 import Disclaimer from '../components/Disclaimer.vue';
 import Compartments from '../components/Compartments.vue';
+import History from '../components/History.vue';
 
 const MAX_MINUTES = 1000000;
 
@@ -13,12 +14,14 @@ export default {
       formData: {
         depth: null,
       },
-      compartments: null
+      compartments: null,
+      history: []
     };
   },
   components: {
     Disclaimer,
-    Compartments
+    Compartments,
+    History
   },
   methods: {
     calculateNoDeco() {
@@ -28,8 +31,12 @@ export default {
       this.noDecoTime = diver.stayMaxNoDeco();
       diver.moveTo(0);
 
+      this.history = diver.history;
       this.compartments = diver.compartments;
       this.showResult = true;
+    },
+    changeCompartments(selectedHistory) {
+      this.compartments = selectedHistory.compartments;
     }
   }
 };
@@ -78,6 +85,11 @@ export default {
       <v-row v-if="showResult">
         <v-col cols="12">
           <Compartments :compartments="compartments"/>
+        </v-col>
+      </v-row>
+      <v-row v-if="showResult">
+        <v-col cols="12">
+          <History :history="history" @history-selected="changeCompartments" :key="history" />
         </v-col>
       </v-row>
     </v-col>
