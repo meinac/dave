@@ -11,12 +11,12 @@ export default class GasFactory {
     return new Gas(o2, n2, null, null);
   }
 
-  static createTmpNitrox(o2Ratio) {
+  static createTmpNitrox(o2Ratio, isDeco) {
     const n2Ratio = 100 - o2Ratio;
 
     const o2 = new O2(o2Ratio);
     const n2 = new N2(n2Ratio);
 
-    return new Gas(o2, n2, null, null);
+    return new Gas(o2, n2, null, null, isDeco);
   }
 }
