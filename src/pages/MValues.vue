@@ -208,14 +208,14 @@ export default {
     </v-col>
   </v-row>
   <v-row>
-    <v-col cols="4">
+    <v-col cols="12" md="4">
       <v-select
         v-model="selectedCompartment"
         :items="dropdownOptions"
         label="Select Compartment"
       ></v-select>
     </v-col>
-    <v-col cols="4">
+    <v-col cols="12" md="4">
       <v-text-field
         v-model="gfHigh"
         label="GF High"
@@ -223,7 +223,7 @@ export default {
         required
         full-width />
     </v-col>
-    <v-col cols="4">
+    <v-col cols="12" md="4">
       <v-text-field
         v-model="gfLow"
         label="GF Low"
