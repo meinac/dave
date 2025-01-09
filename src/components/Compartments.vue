@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <container>
+  <div>
     <v-row>
       <v-col cols="12">
         <h2>Compartments</h2>
@@ -31,7 +31,7 @@
         <CompartmentLoad :compartment="compartment" :scale="1.2" />
       </v-col>
     </v-row>
-  </container>
+  </div>
 </template>
 
 <style>
