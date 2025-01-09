@@ -15,4 +15,13 @@ export default class Gas {
   MOD() {
     return this.o2.MOD(this.deco);
   }
+
+  /*
+  * Returns the equivalent air depth of the gas.
+  */
+  EAD(depth) {
+    const ead = (depth + 10) * this.n2.EADRate() - 10;
+
+    return ead < 0 ? 0 : ead;
+  }
 }

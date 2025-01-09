@@ -11,6 +11,10 @@ export default class N2 {
     return this.fraction * Environment.pressureAt(depth);
   }
 
+  EADRate() {
+    return this.fraction / N2.FRACTION_IN_AIR;
+  }
+
   static ppAt(depth) {
     return this.FRACTION_IN_AIR * Environment.pressureAt(depth)
   }
