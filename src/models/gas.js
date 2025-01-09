@@ -1,10 +1,21 @@
 export default class Gas {
-  constructor(o2, n2, volume, pressure, deco = false) {
+  constructor(givenName, o2, n2, volume, pressure, deco = false) {
+    this.givenName = givenName;
     this.o2 = o2;
     this.n2 = n2;
     this.volume = volume;
     this.pressure = pressure;
     this.deco = deco;
+  }
+
+  name() {
+    return this.givenName || this.autoName();
+  }
+
+  autoName() {
+    if(this.o2.isAirO2()) return 'Air';
+
+    return `EANx${this.o2.ratio}`;
   }
 
   /*

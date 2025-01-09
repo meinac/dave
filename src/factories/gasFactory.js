@@ -8,7 +8,7 @@ export default class GasFactory {
     const o2 = new O2(AIR_O2_RATIO);
     const n2 = new N2(AIR_N2_RATIO);
 
-    return new Gas(o2, n2, null, null);
+    return new Gas(null, o2, n2, null, null);
   }
 
   static createTmpNitrox(o2Ratio, isDeco = false) {
@@ -17,6 +17,6 @@ export default class GasFactory {
     const o2 = new O2(o2Ratio);
     const n2 = new N2(n2Ratio);
 
-    return new Gas(o2, n2, null, null, isDeco);
+    return new Gas(null, o2, n2, null, null, isDeco);
   }
 }
