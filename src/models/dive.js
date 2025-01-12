@@ -43,6 +43,9 @@ export default class Dive {
   * Deco obligation can change while we are ascending,
   * that's why we are ascending until the current depth
   * is the deco ceiling.
+  *
+  * TODO: Find where the deco clears and ascend to that depth
+  * first to update the data.
   */
   moveToDecoCeiling() {
     while(this.diver.currentDepth > this.diver.decoCeiling())
@@ -149,7 +152,8 @@ export default class Dive {
   updateDecoInformation() {
     const decoCeiling = this.diver.decoCeiling();
 
-    if(decoCeiling === 0) return;
+    // Otherwise we don't clear the last deco.
+    if(this.decoStops.lenght === 0 && decoCeiling === 0) return;
 
     this.decoStops.push({ depth: decoCeiling, time: this.time });
   }
