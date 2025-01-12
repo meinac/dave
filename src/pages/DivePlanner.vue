@@ -1,4 +1,5 @@
 <script>
+import Settings from '../components/dive_planner/Settings.vue';
 import Events from '../components/dive_planner/Events.vue';
 import GasManagement from '../components/dive_planner/GasManagement.vue';
 import DiveProfile from '../components/dive_planner/DiveProfile.vue';
@@ -9,6 +10,7 @@ import DiveFactory from '../factories/diveFactory';
 
 export default {
   components: {
+    Settings,
     Events,
     GasManagement,
     DiveProfile,
@@ -24,28 +26,38 @@ export default {
       sacRate: null,
       decoSacRate: null,
       compartments: null,
-      history: null
+      history: null,
+      autoEndDive: true
     }
   },
   methods: {
+    updateAutoEndDive(newValue) {
+      this.autoEndDive = newValue;
+
+      this.updateGraph();
+    },
     updateStartGas(newStartGas) {
-      this.version = crypto.randomUUID();
       this.startGas = newStartGas;
+
+      this.updateGraph();
     },
     updateSacRate(newSacRate) {
-      this.version = crypto.randomUUID();
       this.sacRate = newSacRate;
+
+      this.updateGraph();
     },
     updateDecoSacRate(newDecoSacRate) {
-      this.version = crypto.randomUUID();
       this.decoSacRate = newDecoSacRate;
+
+      this.updateGraph();
     },
     addGas(newGas) {
-      this.version = crypto.randomUUID();
       this.gasses.push(newGas);
+
+      this.updateGraph();
     },
     updateGas(gas) {
-      this.version = crypto.randomUUID();
+      this.updateGraph();
     },
     removeGas(index) {
       this.version = crypto.randomUUID();
@@ -55,11 +67,15 @@ export default {
       this.$refs.eventsComponent.removeGas(gas);
     },
     updateEvents(events) {
-      this.version = crypto.randomUUID();
       this.events = events;
+
+      this.updateGraph();
     },
     changeCompartments(selectedHistory) {
       this.compartments = selectedHistory.compartments;
+    },
+    updateGraph() {
+      this.version = crypto.randomUUID();
     }
   },
   computed: {
@@ -67,7 +83,8 @@ export default {
       const dive = DiveFactory.create(this.startGas, this.sacRate, this.decoSacRate);
 
       dive.execute(this.events);
-      dive.autoComplete();
+
+      if(this.autoEndDive) dive.autoComplete();
 
       this.compartments = dive.diver.compartments;
       this.history = dive.diver.history;
@@ -82,6 +99,12 @@ export default {
   <v-row>
     <v-col cols="12">
       <h1>Dive Planner</h1>
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col cols="12">
+      <Settings
+        @autoEndDive-updated="updateAutoEndDive" />
     </v-col>
   </v-row>
   <v-row>
