@@ -46,6 +46,9 @@ export default class Dive {
   *
   * TODO: Find where the deco clears and ascend to that depth
   * first to update the data.
+  *
+  * TODO: We can get another deco obligation while ascending,
+  * so we need to check it and stop at new dept if there is.
   */
   moveToDecoCeiling() {
     while(this.diver.currentDepth > this.diver.decoCeiling())
