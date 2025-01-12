@@ -165,15 +165,22 @@ export default {
       <v-row v-for="(gas, index) in gasses" :key="index">
         <v-col cols="12" :key="index">
           <v-card>
+            <v-card-title>
+              <h6>{{gas.name()}}<span v-if="gas.deco" class="text-primary">&nbsp;<strong>(D)</strong></span></h6>
+            </v-card-title>
             <v-card-text>
               <v-row>
-                <v-col cols="4" style="text-align: left;">{{gas.name()}}<span v-if="gas.deco" class="text-primary">&nbsp;<strong>(D)</strong></span></v-col>
-                <v-col cols="2">O<sub>2</sub>: {{gas.o2.ratio}}%</v-col>
-                <v-col cols="2">N<sub>2</sub>: {{gas.n2.ratio}}%</v-col>
-                <v-col cols="2">Volume: {{gas.volume}} liters</v-col>
-                <v-col cols="2">Pressure: {{gas.pressure}} bars</v-col>
+                <v-col cols="4">O<sub>2</sub>: {{gas.o2.ratio}}%</v-col>
+                <v-col cols="4">N<sub>2</sub>: {{gas.n2.ratio}}%</v-col>
+                <v-col cols="4"></v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="4">MOD: {{gas.MOD().toFixed(2)}} meters</v-col>
+                <v-col cols="4">V: {{gas.volume}} liters</v-col>
+                <v-col cols="4">P: {{gas.pressure}} bars</v-col>
               </v-row>
             </v-card-text>
+            <v-divider />
             <v-card-actions>
               <v-btn @click="openEditGas(gas)" variant="tonal" color="green-lighten-2">
                 <v-icon left>mdi-pencil</v-icon>
