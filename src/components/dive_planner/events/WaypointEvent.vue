@@ -39,7 +39,7 @@ export default {
           </v-col>
         </v-row>
       </v-card-text>
-
+      <v-divider />
       <v-card-actions>
         <v-btn @click="openEditEvent(index)" variant="tonal" color="green-lighten-2">
           <v-icon left>mdi-pencil</v-icon>
