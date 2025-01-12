@@ -56,7 +56,7 @@ export default class Dive {
     /*
     * Stay a little bit more to account for -Infinity.
     * TODO: This has to be done in Diver model
-    * Test: descent to 50 meters in 2 minutes and stay at 50 meters for 50 minutes.
+    * Test: descend to 50 meters in 2 minutes and stay at 50 meters for 50 minutes.
     */
     this.stay(this.diver.currentDecoDuration() + 0.00001);
   }

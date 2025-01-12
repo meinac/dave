@@ -29,12 +29,12 @@ export default {
 <template>
   <span v-if="action === 'descent'">
     <v-icon left>mdi-arrow-down</v-icon>
-    Descent to <strong>{{event.depth}} meters</strong> in <strong>{{event.duration}} minutes</strong>.
+    Descend to <strong>{{event.depth}} meters</strong> in <strong>{{event.duration}} minutes</strong>.
   </span>
 
   <span v-if="action === 'ascent'">
     <v-icon left>mdi-arrow-up</v-icon>
-    Ascent to <strong>{{event.depth}} meters</strong> in <strong>{{event.duration}} minutes</strong>.
+    Ascend to <strong>{{event.depth}} meters</strong> in <strong>{{event.duration}} minutes</strong>.
   </span>
 
   <span v-if="action === 'stay'">

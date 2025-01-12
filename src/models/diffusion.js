@@ -50,7 +50,7 @@ export default class Diffusion {
   }
 
   /*
-  * Returns the maximum PPN2 to be able to ascent from given depth without deco obligation.
+  * Returns the maximum PPN2 to be able to ascend from given depth without deco obligation.
   *
   * P(old) = P(i_gas) - (R / k) - [P(i_gas) + R(t - 1 / k) - P(new)] / (e^-kt)
   */

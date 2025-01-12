@@ -7,7 +7,7 @@ describe('Diffusion', () => {
   const gas = new Gas('Temporary Gas', null, n2);
 
   describe('.reverseScheiner', () => {
-    test('it returns the maximum nitrogen partial pressure to ascent without deco obligation', () => {
+    test('it returns the maximum nitrogen partial pressure to ascend without deco obligation', () => {
       const targetPPN2 = 2.9625; //M(1)
       const halfTime = 5;
       const gasExchangeRate = Math.log(2, Math.E) / halfTime;
