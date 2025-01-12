@@ -5,6 +5,8 @@ import { LineChart, ScatterChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, TitleComponent } from 'echarts/components';
 import VChart from 'vue-echarts';
 
+import Time from '../../utils/time'
+
 export default {
   components: {
     VChart
@@ -24,8 +26,8 @@ export default {
         tooltip: {
           trigger: 'axis',
           formatter: function(data) {
-            const time = parseInt(data[0].axisValueLabel);
-            let tooltipContent = `${time} mins<br/><br/>`;
+            const time = Time.humanizeMinutes(data[0].value[0]);
+            let tooltipContent = `${time}<br/><br/>`;
             let lastCeiling = null;
 
             data.forEach(item => {
