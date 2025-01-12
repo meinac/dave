@@ -7,6 +7,8 @@ import VChart from 'vue-echarts';
 
 import Time from '../../utils/time'
 
+use([CanvasRenderer, LineChart, ScatterChart, GridComponent, TooltipComponent, TitleComponent]);
+
 export default {
   components: {
     VChart
@@ -16,9 +18,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  setup() {
-    use([ScatterChart]);
   },
   data() {
     return {
