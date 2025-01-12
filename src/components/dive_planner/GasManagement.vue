@@ -167,7 +167,7 @@ export default {
           <v-card>
             <v-card-text>
               <v-row>
-                <v-col cols="4" style="text-align: left;">{{gas.name()}}<span v-if="gas.deco" class="text-primary"><strong>(D)</strong></span></v-col>
+                <v-col cols="4" style="text-align: left;">{{gas.name()}}<span v-if="gas.deco" class="text-primary">&nbsp;<strong>(D)</strong></span></v-col>
                 <v-col cols="2">O<sub>2</sub>: {{gas.o2.ratio}}%</v-col>
                 <v-col cols="2">N<sub>2</sub>: {{gas.n2.ratio}}%</v-col>
                 <v-col cols="2">Volume: {{gas.volume}} liters</v-col>
