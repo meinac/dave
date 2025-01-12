@@ -111,7 +111,7 @@ export default class Dive {
     * If we are running auto pilot and found that there is a new deco obligation,
     * we stop ascending and continue the decompression routine.
     */
-    if(this.autoEnding) return this.completeDeco();
+    if(this.autoEnding) return this.autoComplete();
 
     this.changeDepth(depth, remainingTime);
   }
