@@ -166,7 +166,7 @@ export default class Dive {
     const decoCeiling = this.diver.decoCeiling();
 
     // Otherwise we don't clear the last deco.
-    if(this.decoStops.lenght === 0 && decoCeiling === 0) return;
+    if(this.decoStops.length === 0 && decoCeiling === 0) return;
 
     this.decoStops.push({ depth: decoCeiling, time: this.time });
   }
