@@ -32,7 +32,7 @@ export default {
 
             data.forEach(item => {
               if(item.seriesName === 'Dive Profile') {
-                tooltipContent += `${item.marker} Depth: <b>${item.value[1]} meters</b><br/>`;
+                tooltipContent += `${item.marker} Depth: <b>${item.value[1].toFixed(2)} meters</b><br/>`;
               } else if(item.seriesName === 'Deco ceiling') {
                 const indexOfOther = data.findIndex(i => i.seriesName === 'Deco ceiling' && i.data[1] > item.data[1]);
 
