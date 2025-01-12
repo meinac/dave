@@ -7,6 +7,7 @@ export default class Dive {
     this.history = []
     this.maxDepth = 0;
     this.decoStops = [];
+    this.autoEnding = false;
   }
 
   execute(events) {
@@ -15,6 +16,8 @@ export default class Dive {
 
   autoComplete() {
     if(this.diver.currentDepth == 0) return;
+
+    this.autoEnding = true;
 
     if(this.diver.hasDeco()) this.completeDeco();
 
@@ -103,6 +106,13 @@ export default class Dive {
     const remainingTime = duration - timeToPassDecoPoint;
 
     this.changeDepthWithoutDecoCheck(toDecoDepth, timeToPassDecoPoint);
+
+    /*
+    * If we are running auto pilot and found that there is a new deco obligation,
+    * we stop ascending and continue the decompression routine.
+    */
+    if(this.autoEnding) return this.completeDeco();
+
     this.changeDepth(depth, remainingTime);
   }
 
