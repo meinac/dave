@@ -34,11 +34,9 @@ export default class Diffusion {
   *
   * P(new) = P(i_gas) + R(t - 1 / k) - [P(i_gas) - P(old) - (R / k)] * (e^-kt)
   */
-  static schreiner(gas, initialPPN2, gasExchangeRate, fromDepth, toDepth) {
-    const movementRate = fromDepth > toDepth ? -ASCENT_RATE : DESCENT_RATE;
-    const duration = (toDepth - fromDepth) / movementRate;
-
-    if (duration == 0) return initialPPN2;
+  static schreiner(gas, initialPPN2, gasExchangeRate, fromDepth, toDepth, duration) {
+    if(duration === null) duration = Diffusion.calculateDuration(fromDepth, toDepth);
+    if(duration == 0) return initialPPN2;
 
     const fromPPN2 = gas.n2.ppAt(fromDepth);
     const toPPN2 = gas.n2.ppAt(toDepth);
@@ -56,9 +54,8 @@ export default class Diffusion {
   *
   * P(old) = P(i_gas) - (R / k) - [P(i_gas) + R(t - 1 / k) - P(new)] / (e^-kt)
   */
-  static reverseScheiner(gas, targetPPN2, gasExchangeRate, fromDepth, toDepth) {
-    const movementRate = fromDepth > toDepth ? -ASCENT_RATE : DESCENT_RATE;
-    const duration = (toDepth - fromDepth) / movementRate;
+  static reverseSchreiner(gas, targetPPN2, gasExchangeRate, fromDepth, toDepth) {
+    const duration = this.calculateDuration(fromDepth, toDepth);
 
     if (duration == 0) return initialPPN2;
 
@@ -71,5 +68,48 @@ export default class Diffusion {
         (rate / gasExchangeRate) -
         ((fromPPN2 + (rate * (duration - 1 / gasExchangeRate)) - targetPPN2) / (Math.E ** (-duration * gasExchangeRate)))
     );
+  }
+
+  /**********************************************************
+  * Everything below this point are part of the private API.
+  ***********************************************************/
+
+  static schreinerTime(gas, initialPPN2, targetPPN2, gasExchangeRate, fromDepth, toDepth, duration) {
+    /*
+    * First check if we can already move to target depth without a new deco obligation
+    */
+    const max = this.schreiner(gas, initialPPN2, gasExchangeRate, fromDepth, toDepth, duration);
+
+    if(max <= targetPPN2) return duration;
+
+    const maxIterations = 1000000;
+    const tolerance = 0.00001;
+    const rate = (toDepth - fromDepth) / duration;
+
+    let lowPoint = fromDepth;
+    let highPoint = toDepth;
+
+    for(let i = 0; i < maxIterations; i++) {
+      const currentDepth = (lowPoint + highPoint) / 2.0;
+      const currentDuration = (currentDepth - fromDepth) / rate;
+
+      const currentValue = this.schreiner(gas, initialPPN2, gasExchangeRate, fromDepth, currentDepth, currentDuration);
+
+      if(Math.abs(currentValue - targetPPN2) <= tolerance) return currentDuration;
+
+      (currentValue < targetPPN2) ? lowPoint = currentDepth : highPoint = currentDepth;
+    }
+
+    return duration;
+  }
+
+  /*
+  * TODO: This must be encapsulated in Diver model.
+  */
+  static calculateDuration(fromDepth, toDepth) {
+    const movementRate = fromDepth > toDepth ? -ASCENT_RATE : DESCENT_RATE;
+    const duration = (toDepth - fromDepth) / movementRate;
+
+    return duration;
   }
 }

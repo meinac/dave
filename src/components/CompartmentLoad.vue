@@ -42,7 +42,7 @@
 </script>
 
 <template>
-  <container>
+  <div>
     <div class="v-progress-linear d-flex flex-column-reverse" style="height: 100px;">
       <div :style="{height: loadPercentage}" :class="progressClass"></div>
       <div style="width: 100%; height: 100px; border-top: 1px solid #c8c8c8; position: absolute;" :style="{height: limitPosition + 'px'}"></div>
@@ -57,5 +57,5 @@
       </v-tooltip>
     </div>
     <p>{{this.compartment.name + 1}}</p>
-  </container>
+  </div>
 </template>

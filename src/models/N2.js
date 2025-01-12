@@ -5,6 +5,7 @@ export default class N2 {
 
   constructor(ratio) {
     this.fraction = ratio / 100.0;
+    this.ratio = ratio;
   }
 
   ppAt(depth) {

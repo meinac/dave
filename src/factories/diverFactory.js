@@ -7,6 +7,18 @@ export default class DiverFactory {
     const air = GasFactory.createTmpAir();
     const compartments = CompartmentFactory.createAll();
 
-    return new Diver(compartments, [air]);
+    return new Diver(compartments, air);
+  }
+
+  static create(startGas, sacRate, decoSacRate) {
+    if(startGas === null) startGas = GasFactory.createTmpAir();
+
+    const compartments = CompartmentFactory.createAll();
+    const diver = new Diver(compartments, startGas)
+
+    diver.sacRate = sacRate;
+    diver.decoSacRate = decoSacRate;
+
+    return diver;
   }
 }

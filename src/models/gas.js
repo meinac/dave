@@ -35,4 +35,8 @@ export default class Gas {
 
     return ead < 0 ? 0 : ead;
   }
+
+  givenNameEmpty() {
+    return this.givenName === null || this.givenName === '' || this.givenName === undefined;
+  }
 }

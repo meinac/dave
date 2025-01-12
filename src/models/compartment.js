@@ -16,8 +16,8 @@ export default class Compartment {
     this.ppN2 = Diffusion.haldane(gas, this.ppN2, this.gasExchangeRate, this.depth, duration);
   }
 
-  moveTo(toDepth, gas) {
-    this.ppN2 = Diffusion.schreiner(gas, this.ppN2, this.gasExchangeRate, this.depth, toDepth);
+  moveTo(toDepth, gas, duration) {
+    this.ppN2 = Diffusion.schreiner(gas, this.ppN2, this.gasExchangeRate, this.depth, toDepth, duration);
     this.depth = toDepth;
   }
 
@@ -27,6 +27,55 @@ export default class Compartment {
 
   ndl(gas) {
     return Diffusion.reverseHaldane(gas, this.ppN2, this.m(0), this.gasExchangeRate, this.depth);
+  }
+
+  ndlToDepthWhileMoving(gas, toDepth, duration, nextDecoDepth) {
+    return Diffusion.schreinerTime(
+      gas,
+      this.ppN2,
+      this.m(nextDecoDepth),
+      this.gasExchangeRate,
+      this.depth,
+      toDepth,
+      duration
+    );
+  }
+
+  /*
+  * Returns the time left before a new deco obligation starts
+  * at given depth.
+  */
+  ndlToDepth(gas, toDepth) {
+    return Diffusion.reverseHaldane(gas, this.ppN2, this.m(toDepth), this.gasExchangeRate, this.depth);
+  }
+
+  /*
+  * Returns the deco ceiling as multiple of 3 meters.
+  */
+  decoCeiling() {
+    if(this.exactDecoCeiling() === 0) return 0;
+
+    return Math.ceil((this.exactDecoCeiling() + 0.5) / 3) * 3
+  }
+
+  /*
+  * Returns the exact deco ceiling (e.g. 1.23 meters).
+  */
+  exactDecoCeiling() {
+    const ceiling = (this.tolerableAmbientPressure() - 1) * 10;
+
+    if(ceiling <= 0) return 0;
+
+    return ceiling;
+  }
+
+  /*
+  * Returns the tolerable ambient pressure for the tissue
+  * without the risk of bubble formation.
+  * P(ambtol) = (P(tissue) - M0) / G
+  */
+  tolerableAmbientPressure() {
+    return (this.ppN2 - this.mValue) / this.gValue;
   }
 
   /*
