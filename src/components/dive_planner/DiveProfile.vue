@@ -5,7 +5,8 @@ import { LineChart, ScatterChart } from 'echarts/charts';
 import { GridComponent, TooltipComponent, TitleComponent } from 'echarts/components';
 import VChart from 'vue-echarts';
 
-import Time from '../../utils/time'
+import Tooltip from './dive_profile/Tooltip.vue'
+import ComponentRenderer from '../../utils/component_renderer';
 
 use([CanvasRenderer, LineChart, ScatterChart, GridComponent, TooltipComponent, TitleComponent]);
 
@@ -24,30 +25,10 @@ export default {
       chartOptions: {
         tooltip: {
           trigger: 'axis',
-          formatter: function(data) {
-            const time = Time.humanizeMinutes(data[0].value[0]);
-            let tooltipContent = `${time}<br/><br/>`;
-            let lastCeiling = null;
+          formatter: (data) => {
+            const renderer = new ComponentRenderer(Tooltip);
 
-            data.forEach(item => {
-              if(item.seriesName === 'Dive Profile') {
-                tooltipContent += `${item.marker} Depth: <b>${item.value[1].toFixed(2)} meters</b><br/>`;
-              } else if(item.seriesName === 'Deco ceiling') {
-                const indexOfOther = data.findIndex(i => i.seriesName === 'Deco ceiling' && i.data[1] > item.data[1]);
-
-                if(indexOfOther < 0 && lastCeiling === null) {
-                  lastCeiling = item.value[1];
-                  tooltipContent += `${item.marker} Deco Ceiling: <b>${item.value[1]} meters</b><br/>`;
-                }
-              } else if(item.seriesName === 'Alert') {
-                if(item.data.type === 'NOTOX') {
-                  tooltipContent += `${item.marker} NOTOX ${item.data.extra.name}</b><br/>`;
-                }
-                // Add more alerts to here.
-              }
-            });
-
-            return tooltipContent;
+            return renderer.render({ data: data });
           }
         },
         xAxis: {
@@ -121,7 +102,11 @@ export default {
 
     this.dive.history.forEach(history => {
       if(history.type === 'Waypoint') {
-        diveProfile.push([history.time, history.depth]);
+        diveProfile.push({
+          value: [history.time, history.depth],
+          TTS: history.TTS,
+          extra: history.extra
+        });
       } else {
         events.push({
           value: [history.time, history.depth],

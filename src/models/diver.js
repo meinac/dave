@@ -1,3 +1,6 @@
+import { MIN_TIME } from '../constants/diving';
+import PseudoDeco from './pseudoDeco';
+
 export default class Diver {
   constructor(compartments, currentGas) {
     this.currentDepth = 0;
@@ -41,11 +44,23 @@ export default class Diver {
     return this.decoCeiling() > 0;
   }
 
+  /*
+  * Time to surface.
+  * We simulate all the decompression obligations because while doing
+  * decompression, we can get new obligations so we can't just sum
+  * existing decompression obligations.
+  */
+  TTS() {
+    const pseudoDeco = new PseudoDeco(this.cloneCompartments(), this.currentGas);
+
+    return pseudoDeco.TTS();
+  }
+
   currentDecoDuration() {
     const times = this.compartments.map(compartment => compartment.ndlToDepth(this.currentGas, this.previousDecoCeilingThreshold()))
                       .filter(time => time > 0 && time != Infinity);
 
-    return Math.max(...times);
+    return Math.max(...times, MIN_TIME);
   }
 
   /*
