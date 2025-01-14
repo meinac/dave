@@ -1,5 +1,5 @@
 import { MIN_TIME } from '../constants/diving';
-import PseudoDeco from './pseudoDeco';
+import TTS from './TTS';
 
 export default class Diver {
   constructor(compartments, currentGas) {
@@ -51,9 +51,9 @@ export default class Diver {
   * existing decompression obligations.
   */
   TTS() {
-    const pseudoDeco = new PseudoDeco(this.cloneCompartments(), this.currentGas);
+    const timeToSurface = new TTS(this.cloneCompartments(), this.currentGas);
 
-    return pseudoDeco.TTS();
+    return timeToSurface.duration();
   }
 
   currentDecoDuration() {
