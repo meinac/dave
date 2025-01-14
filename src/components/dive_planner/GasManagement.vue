@@ -114,7 +114,7 @@ export default {
         </v-row>
       </v-card-title>
       <v-card-text>
-        <v-form ref="gasForm">
+        <v-form ref="gasForm" @submit.prevent="isEditMode ? updateGas() : createGas()">
           <v-text-field label="Name" v-model="formGas.name" />
           <v-text-field label="O2 content" v-model="formGas.o2" :rules="[gasFormRules.required, gasFormRules.numeric, gasFormRules.range(1, 100)]" />
           <v-text-field label="Volume" v-model="formGas.volume" :rules="[gasFormRules.required, gasFormRules.numeric, gasFormRules.minValue(1)]" />
@@ -124,6 +124,8 @@ export default {
             color="primary"
             label="Deco gas"
             hide-details />
+
+          <button type="submit" style="display: none;"></button>
         </v-form>
       </v-card-text>
       <v-card-actions>

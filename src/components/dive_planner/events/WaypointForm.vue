@@ -4,6 +4,10 @@ export default {
     formEvent: {
       type: Object,
       required: true
+    },
+    submit: {
+      type: Function,
+      required: true
     }
   },
   data() {
@@ -28,7 +32,7 @@ export default {
 </script>
 
 <template>
-  <v-form ref="form">
+  <v-form ref="form" @submit.prevent="submit()">
     <v-text-field
       v-model="formEvent.depth"
       label="Depth"
@@ -40,5 +44,7 @@ export default {
       label="Duration"
       type="number"
       :rules="[formRules.required, formRules.numeric, formRules.minValue(1)]" />
+
+    <button type="submit" style="display: none;"></button>
   </v-form>
 </template>

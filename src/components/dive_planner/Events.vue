@@ -147,7 +147,8 @@ export default {
         <WaypointForm
           v-if="formEvent.type === 'Waypoint'"
           ref="waypointForm"
-          :formEvent="formEvent" />
+          :formEvent="formEvent"
+          :submit="isEditMode ? updateEvent : createEvent" />
 
         <NOTOXForm
           v-if="formEvent.type === 'NOTOX'"
