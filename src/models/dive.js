@@ -1,4 +1,4 @@
-import { ASCENT_RATE } from '../constants/diving';
+import { ASCENT_RATE, MIN_TIME } from '../constants/diving';
 
 export default class Dive {
   constructor(diver) {
@@ -59,12 +59,7 @@ export default class Dive {
   }
 
   doDeco() {
-    /*
-    * Stay a little bit more to account for -Infinity.
-    * TODO: This has to be done in Diver model
-    * Test: descend to 50 meters in 2 minutes and stay at 50 meters for 50 minutes.
-    */
-    this.stay(this.diver.currentDecoDuration() + 0.00001);
+    this.stay(this.diver.currentDecoDuration());
   }
 
   autoMoveTo(depth) {
@@ -100,7 +95,7 @@ export default class Dive {
 
     if(duration <= timeToNextDecoDepth) return this.changeDepthWithoutDecoCheck(depth, duration);
 
-    const timeToPassDecoPoint = timeToNextDecoDepth + 0.01;
+    const timeToPassDecoPoint = timeToNextDecoDepth + MIN_TIME;
     const pace = (depth - this.diver.currentDepth) / duration;
     const toDecoDepth = this.diver.currentDepth + (pace * timeToPassDecoPoint);
     const remainingTime = duration - timeToPassDecoPoint;
@@ -130,7 +125,7 @@ export default class Dive {
     if(timeToNextDecoDepth <= 0 || duration <= timeToNextDecoDepth)
       return this.stayWithoutDecoCheck(duration);
 
-    const timeToPassDecoPoint = timeToNextDecoDepth + 0.00001;
+    const timeToPassDecoPoint = timeToNextDecoDepth + MIN_TIME;
 
     this.stayWithoutDecoCheck(timeToPassDecoPoint);
     this.stay(duration - timeToPassDecoPoint);
@@ -157,7 +152,13 @@ export default class Dive {
   updateHistory(type, duration, extra = {}) {
     this.time += duration;
 
-    this.history.push({ type: type, depth: this.diver.currentDepth, time: this.time, extra: extra });
+    this.history.push({
+      type: type,
+      depth: this.diver.currentDepth,
+      time: this.time,
+      TTS: this.diver.TTS(),
+      extra: extra
+    });
 
     this.updateDecoInformation();
   }
