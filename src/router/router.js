@@ -4,6 +4,7 @@ import MOD from '../pages/MOD.vue';
 import EAD from '../pages/EAD.vue';
 import NoDeco from '../pages/NoDeco.vue';
 import DivePlanner from '../pages/DivePlanner.vue';
+import GasBlender from '../pages/GasBlender.vue';
 import MValues from '../pages/MValues.vue';
 import Constants from '../pages/Constants.vue';
 import WhyDave from '../pages/WhyDave.vue';
@@ -14,6 +15,7 @@ const routes = [
   { path: '/ead', name: 'EAD', component: EAD },
   { path: '/no-deco', name: 'No-Deco', component: NoDeco },
   { path: '/dive-planner', name: 'Dive Planner', component: DivePlanner },
+  { path: '/gas-blender', name: 'Gas Blender', component: GasBlender },
   { path: '/m-values', name: 'M Values', component: MValues },
   { path: '/constants', name: 'Constants', component: Constants },
   { path: '/why-dave', name: 'Why Dave?', component: WhyDave },
