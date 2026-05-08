@@ -52,8 +52,8 @@ export default {
           <v-table>
             <thead>
               <tr>
-                <th class="text-center">Name</th>
-                <th class="text-center">Value</th>
+                <th class="text-center font-weight-bold">Name</th>
+                <th class="text-center font-weight-bold">Value</th>
               </tr>
             </thead>
             <tbody>
@@ -87,8 +87,8 @@ export default {
           <v-table>
             <thead>
               <tr>
-                <th class="text-center">Name</th>
-                <th class="text-center">Value</th>
+                <th class="text-center font-weight-bold">Name</th>
+                <th class="text-center font-weight-bold">Value</th>
               </tr>
             </thead>
             <tbody>
@@ -138,10 +138,10 @@ export default {
           <v-table>
             <thead>
               <tr>
-                <th class="text-center">Compartment</th>
-                <th class="text-center">Half-time</th>
-                <th class="text-center">M0(coefficient a)</th>
-                <th class="text-center">G(1 / coefficient b)</th>
+                <th class="text-center font-weight-bold">Compartment</th>
+                <th class="text-center font-weight-bold">Half-time</th>
+                <th class="text-center font-weight-bold">M0(coefficient a)</th>
+                <th class="text-center font-weight-bold">G(1 / coefficient b)</th>
               </tr>
             </thead>
             <tbody>
